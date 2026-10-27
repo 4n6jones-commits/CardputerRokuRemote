@@ -14,13 +14,16 @@ official Roku mobile app uses. That means:
 
 ## Setup
 
-1. Install via the Launcher (`downloads/CardputerRokuRemote.1.1.0.bin` on
-   the SD card, already copied there).
+1. Install via the Launcher: copy the app `.bin` to `downloads/` on the SD
+   card (e.g. `downloads/CardputerRokuRemote.1.3.0.bin`), or flash
+   `firmware/CardputerRokuRemote_0x0.bin` (8MB full-flash image) at `0x0`.
 2. First boot walks through WiFi setup same as CardputerRadio.
-3. The screen will prompt you to press `n` to find the Roku on the network
-   (tries auto-discovery first via SSDP, falls back to typing in the IP
-   address if that doesn't find it - Settings > Network > About on the Roku
-   shows its IP).
+3. The screen will prompt you to press `n` to find the Roku on the network.
+   It tries SSDP auto-discovery first; if nothing answers (some hotspots
+   don't pass multicast, and some older Rokus never reply), it scans the
+   local /24 for port 8060 and confirms the hit is a Roku. Only if both
+   fail does it ask you to type the IP (Settings > Network > About on the
+   Roku shows it).
 
 Both WiFi and the Roku itself can be switched at any time, not just during
 setup - `w` always reopens the WiFi picker, `n` always re-runs Roku
@@ -34,7 +37,7 @@ confirmed send, red if the Roku didn't respond.
 
 | Key | Action |
 |---|---|
-| `;`/`u`  `.`/`d`  `,`/`l`  `/`/`r` | Up / Down / Left / Right (D-pad) |
+| `;`/`u`  `.`/`d`  `,`/`l`  `/`/`r` | Up / Down / Left / Right (D-pad) - hold to repeat |
 | Enter | Select (OK) |
 | Backspace (Del) | Back |
 | `h` | Home |
@@ -45,6 +48,15 @@ confirmed send, red if the Roku didn't respond.
 | `p` | Play / Pause |
 | `w` | Switch WiFi network |
 | `n` | Find / switch Roku device |
+| Tab | Typing mode (see below) |
+
+### Typing mode
+
+Press **Tab** on the remote screen to type straight into a Roku search box
+or on-screen keyboard - each key is sent as an ECP `Lit_` keypress. The
+Cardputer shows what's been sent (red if a character didn't reach the
+Roku). In this mode **Del** sends Backspace, **Enter** sends Enter, and
+**Tab** returns to the remote.
 
 No separate volume/mute keys - the real RC-AL2 doesn't have them either,
 since a plug-in streaming stick has no volume control of its own.
